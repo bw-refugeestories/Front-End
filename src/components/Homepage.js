@@ -1,7 +1,14 @@
 import React from "react";
+import HomepageCarousel from "./Homepage/HomepageCarousel";
+import StoryList from "./Homepage/StoryList";
 
 const Homepage = () => {
-  return <div>Homepage</div>;
+  return (
+    <>
+      <HomepageCarousel />
+      <StoryList />
+    </>
+  );
 };
 
 export default Homepage;
