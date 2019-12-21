@@ -8,13 +8,13 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-// const store = createStore();
+const store = createStore();
 
 ReactDOM.render(
-  // <Provider store={store}>
-  <Router>
-    <App />
-  </Router>,
-  // </Provider>,
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
   document.getElementById("root")
 );
