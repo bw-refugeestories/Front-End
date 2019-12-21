@@ -10,16 +10,24 @@ const StoryCard = ({ story }) => {
           top
           width="100%"
           src="https://reactstrap.github.io/assets/318x180.svg"
-          // src={story.storyImg} API DOES NOT RETURN A VALID URL, TO BE FIXED IN THE BACKEND
+          // SAMET: src={story.storyImg} API does not return a valid image URL, to be fixed in the backend
           alt={story.author || story.storyName}
         />
         <CardBody>
-          <CardTitle>
-            <Link to="/story/1">{story.storyName}</Link>
-          </CardTitle>
+          <CardTitle>{story.storyName}</CardTitle>
           <CardText className="font-weight-light">
-            {story.storyContent.substr(0, 140)}... Read More
+            {story.storyContent.substr(0, 140)}...
           </CardText>
+          <Link
+            to={{
+              pathname: `/story/${story.id}`,
+              state: { story }
+            }}
+            className="btn btn-outline-secondary stretched-link"
+            outline
+          >
+            Read More &rarr;
+          </Link>
         </CardBody>
       </Card>
     </Col>

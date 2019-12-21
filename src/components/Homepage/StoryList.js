@@ -11,7 +11,7 @@ const StoryList = () => {
     axios
       .get("http://localhost:5000/") // SAMET: I set up the Back-End repo on my computer, replace it with the actual API link later
       .then(response => setStories(response.data))
-      .catch(err => console.log(err));
+      .catch(err => console.log("API Request Error:", err));
   }, []);
 
   return (
