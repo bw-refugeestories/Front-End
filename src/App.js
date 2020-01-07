@@ -10,7 +10,7 @@ import Footer from "./components/Footer";
 
 const App = () => {
   return (
-    <>
+    <div className="container">
       <Header />
       <Route exact path="/" component={Homepage} />
       <Route path="/login" component={Login} />
@@ -19,7 +19,7 @@ const App = () => {
       {/* This will be a private route! */}
       <Route path="/story/:id" component={Story} />
       <Footer />
-    </>
+    </div>
   );
 };
 
