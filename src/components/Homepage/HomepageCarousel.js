@@ -7,25 +7,10 @@ import {
   CarouselCaption
 } from "reactstrap";
 
-const items = [
-  {
-    src: "https://wowslider.com/sliders/demo-93/data1/images/landscape.jpg",
-    altText: "Refugee stories are published in this website!",
-    caption: "This is a website that publishes refugee stories."
-  },
-  {
-    src: "https://wowslider.com/sliders/demo-93/data1/images/sunset.jpg",
-    altText: "Recommend our website to your friends.",
-    caption: "Help us connect to more people."
-  },
-  {
-    src: "https://wowslider.com/sliders/demo-93/data1/images/lake.jpg",
-    altText: "We would like to hear from you!",
-    caption: "Do you have a story to tell? We are expecting to hear from you!"
-  }
-];
+const HomepageCarousel = ({ stories }) => {
+  const storiesOnCarousel = [9, 11, 14];
+  const items = stories.filter(story => storiesOnCarousel.includes(story.id));
 
-const HomepageCarousel = props => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
@@ -51,12 +36,16 @@ const HomepageCarousel = props => {
       <CarouselItem
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
-        key={item.src}
+        key={item.id}
       >
-        <img src={item.src} alt={item.altText} className="carousel-img" />
+        <img
+          src={item.storyImg}
+          alt={item.storyName}
+          className="carousel-img"
+        />
         <CarouselCaption
-          captionText={item.caption}
-          captionHeader={item.caption}
+          captionText={item.storyContent.split(".")[0]}
+          captionHeader={item.storyName}
         />
       </CarouselItem>
     );
