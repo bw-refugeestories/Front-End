@@ -1,19 +1,9 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 
 import { Row, Col } from "reactstrap";
 import StoryCard from "./StoryCard";
 
-const StoryList = () => {
-  const [stories, setStories] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/") // SAMET: I set up the Back-End repo on my computer, replace it with the actual API link later
-      .then(response => setStories(response.data))
-      .catch(err => console.log("API Request Error:", err));
-  }, []);
-
+const StoryList = ({ stories }) => {
   return (
     <div className="stories">
       <Row className="mx-0 px-xs-2 px-md-5 desc">

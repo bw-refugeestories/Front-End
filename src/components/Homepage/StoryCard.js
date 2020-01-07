@@ -9,8 +9,7 @@ const StoryCard = ({ story }) => {
         <CardImg
           top
           width="100%"
-          src="https://reactstrap.github.io/assets/318x180.svg"
-          // SAMET: src={story.storyImg} API does not return a valid image URL, to be fixed in the backend
+          src={story.storyImg}
           alt={story.author || story.storyName}
         />
         <CardBody>
@@ -24,7 +23,6 @@ const StoryCard = ({ story }) => {
               state: { story }
             }}
             className="btn btn-outline-secondary stretched-link"
-            outline
           >
             Read More &rarr;
           </Link>
