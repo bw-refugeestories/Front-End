@@ -12,7 +12,7 @@ const StoryList = ({ stories }) => {
           world!
         </Col>
       </Row>
-      <Row className="mx-0 px-3 py-3 story-list">
+      <Row className="mx-0 p-3 story-list">
         {stories.map(story => (
           <StoryCard key={story.id} story={story} />
         ))}
