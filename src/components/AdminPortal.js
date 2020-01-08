@@ -1,7 +1,16 @@
 import React from "react";
+import { connect } from "tls";
 
 const AdminPortal = () => {
-  return <div>AdminPortal</div>;
+  return (
+    <div>Admin portal</div>
+  );
 };
 
-export default AdminPortal;
+const mapStateToProps = state => {
+  return {
+    pendingStories: state.pendingStories
+  }
+}
+
+export default connect(mapStateToProps, {})(AdminPortal);
