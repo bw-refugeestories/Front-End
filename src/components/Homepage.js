@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Route } from "react-router-dom";
 import axios from "axios";
 import HomepageCarousel from "./Homepage/HomepageCarousel";
 import StoryList from "./Homepage/StoryList";
+import Story from "./Story";
 
 const Homepage = () => {
   const [stories, setStories] = useState([]);

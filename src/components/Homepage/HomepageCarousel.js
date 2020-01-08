@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 import {
   Carousel,
   CarouselItem,
@@ -8,7 +10,7 @@ import {
 } from "reactstrap";
 
 const HomepageCarousel = ({ stories }) => {
-  const storiesOnCarousel = [9, 11, 14];
+  const storiesOnCarousel = [15, 16, 17];
   const items = stories.filter(story => storiesOnCarousel.includes(story.id));
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -43,10 +45,12 @@ const HomepageCarousel = ({ stories }) => {
           alt={item.storyName}
           className="carousel-img"
         />
-        <CarouselCaption
-          captionText={item.storyContent.split(".")[0]}
-          captionHeader={item.storyName}
-        />
+        <Link to={`/story/${item.id}`}>
+          <CarouselCaption
+            captionText={item.storyContent.split(".")[0]}
+            captionHeader={item.storyName}
+          />
+        </Link>
       </CarouselItem>
     );
   });

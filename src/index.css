@@ -220,3 +220,23 @@ table {
   padding: 0 20px;
   background: rgba(0, 67, 133, 0.1);
 }
+
+.story-content .story-title {
+  font-size: 32px;
+  margin-bottom: 0;
+}
+
+.story-content .story-meta {
+  color: #666;
+  font-size: 16px;
+}
+
+.story-content .feature-img {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.story-content .feature-img img {
+  width: 100%;
+  max-width: 500px;
+}
