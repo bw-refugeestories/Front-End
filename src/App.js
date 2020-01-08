@@ -7,6 +7,7 @@ import SubmitStory from "./components/SubmitStory";
 import AdminPortal from "./components/AdminPortal";
 import Story from "./components/Story";
 import Footer from "./components/Footer";
+import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
   return (
@@ -15,8 +16,7 @@ const App = () => {
       <Route exact path="/" component={Homepage} />
       <Route path="/login" component={Login} />
       <Route path="/submit-story" component={SubmitStory} />
-      <Route path="/admin" component={AdminPortal} />
-      {/* This will be a private route! */}
+      <PrivateRoute path="/admin" component={AdminPortal} />
       <Route path="/story/:id" component={Story} />
       <Footer />
     </div>

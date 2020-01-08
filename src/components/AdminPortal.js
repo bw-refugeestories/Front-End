@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "tls";
+import { fetch_pending_stories } from '../utils/actions';
 
 const AdminPortal = () => {
   return (
@@ -13,4 +14,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, {})(AdminPortal);
+export default AdminPortal;
