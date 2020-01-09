@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { approveStory, denyStory, fetch_pending_stories, fetch_stories} from '../utils/actions';
 
 // Material UI Imports
 import { makeStyles } from "@material-ui/core/styles";
@@ -44,10 +46,26 @@ const PendingStory = props => {
           <p id="simple-modal-description">
             {props.story.storyContent}
             <br></br>
-            <Button variant="contained" color="primary">
+            <Button 
+            variant="contained" 
+            color="primary"
+            onClick={() => {
+                const updateStories ={
+                    ...props.story,
+                    approved: true,
+                }
+                props.approveStory(updateStories)
+            }}
+            >
               Accept
             </Button>
-            <Button variant="contained" color="secondary">
+            <Button 
+            variant="contained" 
+            color="secondary"
+            onClick={() => {
+                props.denyStory(props.story.id)
+            }}
+            >
               Deny
             </Button>
           </p>
@@ -56,4 +74,18 @@ const PendingStory = props => {
     </div>
   );
 };
-export default PendingStory;
+
+const mapStateToProps = state => {
+    return {
+        storyReducer: state.storyReducer
+    }
+}
+
+export default connect (
+    mapStateToProps, {
+        approveStory,
+        denyStory,
+        fetch_stories,
+        fetch_pending_stories
+    }
+) (PendingStory);

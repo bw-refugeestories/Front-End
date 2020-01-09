@@ -55,7 +55,7 @@ export const add_admin_user = newUser => dispatch => {
 export const approveStory = story => dispatch => {
     dispatch({ type: APPROVE_STORY});
     axiosWithAuth()
-    .put(`https://refugees-lambda.herokuapp.com/acceptedStories/${story.id}`, story)
+    .put(`pendingStories/approve/${story.id}`, story)
     .then (res => {
         dispatch( {type: APPROVE_STORY, payload: res.data} )
     })
@@ -64,7 +64,7 @@ export const approveStory = story => dispatch => {
 
 export const denyStory = id => dispatch => {
     axiosWithAuth()
-    .delete(`/pendingStories/${id}`)
+    .delete(`/pendingStories/delete/${id}`)
     .then ( res =>{
         dispatch( {type: DENY_STORY, payload: res.data} )
     })

@@ -84,14 +84,14 @@ export const storyReducer = (state = initialState, action) => {
         case APPROVE_STORY:
             return {
                 ...state,
-                stories: state.stories.map( story => {
+                pendingStories: state.pendingStories.map( story => {
                     return story.id === action.payload.id ? action.payload : story;
                 }),
             }
         case DENY_STORY:
             return {
                 ...state,
-                stories: state.stories.filter( story => {
+                pendingStories: state.pendingStories.filter( story => {
                     return story.id !== action.payload
                 }),
             }
