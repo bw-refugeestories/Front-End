@@ -1,26 +1,37 @@
-import React, { useState, useEffect } from "react";
-import { Route } from "react-router-dom";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import HomepageCarousel from "./Homepage/HomepageCarousel";
 import StoryList from "./Homepage/StoryList";
-import Story from "./Story";
+import { fetch_stories } from "../utils/actions";
 
-const Homepage = () => {
-  const [stories, setStories] = useState([]);
+const Homepage = props => {
+  // const [stories, setStories] = useState([]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("https://refugees-lambda.herokuapp.com/acceptedStories")
+  //     .then(response => setStories(response.data))
+  //     .catch(err => console.log("API Request Error:", err));
+  // }, []);
 
   useEffect(() => {
-    axios
-      .get("https://refugees-lambda.herokuapp.com/acceptedStories")
-      .then(response => setStories(response.data))
-      .catch(err => console.log("API Request Error:", err));
+    props.fetch_stories();
   }, []);
 
   return (
     <>
-      <HomepageCarousel stories={stories} />
-      <StoryList stories={stories} />
+      <HomepageCarousel stories={props.stories} />
+      <StoryList stories={props.stories} />
     </>
   );
 };
 
-export default Homepage;
+const mapStateToProps = state => {
+  return {
+    stories: state.stories
+  };
+};
+
+export default connect(mapStateToProps, { fetch_stories })(Homepage);
+
+// export default Homepage;
