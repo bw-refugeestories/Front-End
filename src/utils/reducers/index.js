@@ -10,7 +10,9 @@ import {
     ADD_ADMIN_USER_FAILURE,
     FETCH_STORIES_START,
     FETCH_STORIES_SUCCESS,
-    FETCH_STORIES_FAILURE
+    FETCH_STORIES_FAILURE,
+    APPROVE_STORY,
+    DENY_STORY
 } from '../actions';
 
 const initialState = {
@@ -79,7 +81,20 @@ export const storyReducer = (state = initialState, action) => {
                 isFetching: false,
                 error: action.payload
             }
-
+        case APPROVE_STORY:
+            return {
+                ...state,
+                stories: state.stories.map( story => {
+                    return story.id === action.payload.id ? action.payload : story;
+                }),
+            }
+        case DENY_STORY:
+            return {
+                ...state,
+                stories: state.stories.filter( story => {
+                    return story.id !== action.payload
+                }),
+            }
         case ADD_ADMIN_USER_START:
             return {
                 ...state,
@@ -100,6 +115,8 @@ export const storyReducer = (state = initialState, action) => {
             }
 
         default:
-            return state;
+            return{
+                ...state
+            }
     }
 }

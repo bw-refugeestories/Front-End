@@ -15,6 +15,8 @@ export const ADD_ADMIN_USER_SUCCESS = 'ADD_ADMIN_USER_SUCCESS';
 export const ADD_ADMIN_USER_FAILURE = 'ADD_ADMIN_USER_FAILURE';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const APPROVE_STORY = 'APPROVE_STORY';
+export const DENY_STORY = 'DENY_STORY';
 
 
 export const fetch_stories = () => dispatch => {
@@ -48,6 +50,25 @@ export const add_admin_user = newUser => dispatch => {
         .catch(err => {
             dispatch({ type: ADD_ADMIN_USER_FAILURE, payload: `${err.response.status} ${err.response.statusText}`});
         })
+}
+
+export const approveStory = story => dispatch => {
+    dispatch({ type: APPROVE_STORY});
+    axiosWithAuth()
+    .put(`https://refugees-lambda.herokuapp.com/acceptedStories/${story.id}`, story)
+    .then (res => {
+        dispatch( {type: APPROVE_STORY, payload: res.data} )
+    })
+    .catch( err => console.log('Approve Story: Error Happened', err))
+}
+
+export const denyStory = id => dispatch => {
+    axiosWithAuth()
+    .delete(`/pendingStories/${id}`)
+    .then ( res =>{
+        dispatch( {type: DENY_STORY, payload: res.data} )
+    })
+    .catch(err => console.log('DenyStory: Oops Something went wrong', err))
 }
 
 export const logout = () => dispatch => {
