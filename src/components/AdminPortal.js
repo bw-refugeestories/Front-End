@@ -15,6 +15,7 @@ const AdminPortal = props => {
       <Link to='/admin/add-user'><Button variant="contained" color="primary">
       Add New Admin
       </Button></Link>
+      <h1>Accept or Deny Stories</h1>
       <div className='pending-wrapper'>
         {
           props.pendingStories.map(story => <PendingStory story={story} key={story.id} />)
