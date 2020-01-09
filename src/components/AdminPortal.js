@@ -1,7 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
+import Button from '@material-ui/core/Button';
+import { fetch_pending_stories } from '../utils/actions';
+import PendingStory from './PendingStory.js';
 
-const AdminPortal = () => {
-  return <div>AdminPortal</div>;
+const AdminPortal = props => {
+  useEffect(() => {
+    props.fetch_pending_stories();
+  }, []);
+
+  return (
+    <div className='admin-portal'>
+      <Link to='/admin/add-user'><Button variant="contained" color="primary">
+      Add New Admin
+      </Button></Link>
+      <div className='pending-wrapper'>
+        {
+          props.pendingStories.map(story => <PendingStory story={story} key={story.id} />)
+        }
+      </div>
+    </div>
+  );
 };
 
-export default AdminPortal;
+
+
+const mapStateToProps = state => {
+  return {
+    pendingStories: state.pendingStories
+  }
+}
+
+export default connect(mapStateToProps, {fetch_pending_stories})(AdminPortal);

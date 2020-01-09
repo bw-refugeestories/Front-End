@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import {connect} from 'react-redux';
+import {add_admin_user} from '../utils/actions';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -33,28 +34,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SubmitStory = props => {
+const AdminAddUser = props => {
   const classes = useStyles();
-  const [story, setStory] = useState({storyName: '', storyContent: ''});
-  const [isFailed, setIsFailed] = useState(false);
+
+  const [user, setUser] = useState({firstName: '', lastName: '', username: '', password: ''});
 
   const handleUpdate = e => {
     const {name, value} = e.target;
-    setStory({...story, [name]: value});
+    setUser({...user, [name]: value});
   }
 
   const handleSubmit = e => {
       e.preventDefault();
-      console.log(story);
-      axios.post('https://refugees-lambda.herokuapp.com/pendingStories/add', story)
-         .then(res => {
-            setIsFailed(false);
-            props.history.push('/');
-         })
-         .catch(err => {
-            console.error(err);
-            setIsFailed(true);
-         });
+      console.log(user);
+      props.add_admin_user(user);
   }
 
   return (
@@ -64,7 +57,7 @@ const SubmitStory = props => {
         <Avatar className={classes.blue}>
         </Avatar>
         <Typography component="h1" variant="h5">
-          Tell us your story
+          Add Admin User
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -73,23 +66,41 @@ const SubmitStory = props => {
             onChange={handleUpdate}
             required
             fullWidth
-            id="storyName"
-            label="Name of Story"
-            name="storyName"
+            id="firstName"
+            label="First Name"
+            name="firstName"
             autoFocus
           />
           <TextField
-            rows="12"
             variant="outlined"
             margin="normal"
             onChange={handleUpdate}
             required
             fullWidth
-            multiline
-            name="storyContent"
-            label="Story Content"
-            type="text"
-            id="storyContent"
+            id="lastName"
+            label="Last Name"
+            name="lastName"
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            onChange={handleUpdate}
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            onChange={handleUpdate}
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
           />
           <Button
             type="submit"
@@ -99,13 +110,12 @@ const SubmitStory = props => {
             color="primary"
             className={classes.submit}
           >
-            Submit Story
+            Add Admin
           </Button>
-          {isFailed ? <p className='failed'>Submitting story failed. Please try again!</p> : null}
         </form>
       </div>
     </Container>
   );
 }
 
-export default SubmitStory;
+export default connect(null, {add_admin_user})(AdminAddUser);
