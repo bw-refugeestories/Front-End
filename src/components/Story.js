@@ -34,7 +34,7 @@ const Story = props => {
   }
 
   return (
-    <>
+    <React.Fragment>
       <Row className="mx-0">
         <Col xs={12} className="py-4 pr-5 story-content">
           <h2 className="pb-3 story-title">{storyName}</h2>
@@ -57,7 +57,7 @@ const Story = props => {
             })}
         </Col>
       </Row>
-    </>
+    </React.Fragment>
   );
 };
 

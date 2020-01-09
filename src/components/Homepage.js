@@ -15,10 +15,10 @@ const Homepage = props => {
   //     .catch(err => console.log("API Request Error:", err));
   // }, []);
 
-  const { isFetching, stories } = props;
+  const { isFetching, stories, fetch_stories } = props;
 
   useEffect(() => {
-    props.fetch_stories();
+    fetch_stories();
   }, []);
 
   if (isFetching) {
