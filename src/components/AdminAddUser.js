@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {connect} from 'react-redux';
-import {login} from '../utils/actions';
-import axios from 'axios';
+import {add_admin_user} from '../utils/actions';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -35,11 +34,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Login = props => {
+const AdminAddUser = props => {
   const classes = useStyles();
 
-  const [user, setUser] = useState({username: '', password: ''});
-  const [isFailed, setIsFailed] = useState(false);
+  const [user, setUser] = useState({firstName: '', lastName: '', username: '', password: ''});
 
   const handleUpdate = e => {
     const {name, value} = e.target;
@@ -48,17 +46,8 @@ const Login = props => {
 
   const handleSubmit = e => {
       e.preventDefault();
-      axios.post('https://refugees-lambda.herokuapp.com/auth/login', user)
-         .then(res => {
-            setIsFailed(false);
-
-            localStorage.setItem('token', res.data.token);
-            props.history.push('/admin');
-         })
-         .catch(err => {
-            console.error(err);
-            setIsFailed(true);
-         });
+      console.log(user);
+      props.add_admin_user(user);
   }
 
   return (
@@ -68,9 +57,30 @@ const Login = props => {
         <Avatar className={classes.blue}>
         </Avatar>
         <Typography component="h1" variant="h5">
-          Login
+          Add Admin User
         </Typography>
         <form className={classes.form} noValidate>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            onChange={handleUpdate}
+            required
+            fullWidth
+            id="firstName"
+            label="First Name"
+            name="firstName"
+            autoFocus
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            onChange={handleUpdate}
+            required
+            fullWidth
+            id="lastName"
+            label="Last Name"
+            name="lastName"
+          />
           <TextField
             variant="outlined"
             margin="normal"
@@ -80,7 +90,6 @@ const Login = props => {
             id="username"
             label="Username"
             name="username"
-            autoFocus
           />
           <TextField
             variant="outlined"
@@ -101,13 +110,12 @@ const Login = props => {
             color="primary"
             className={classes.submit}
           >
-            Login
+            Add Admin
           </Button>
-          {!isFailed ? null : <p className='failed'>Login failed. Please try again!</p>}
         </form>
       </div>
     </Container>
   );
 }
 
-export default connect(null, {login})(Login);
+export default connect(null, {add_admin_user})(AdminAddUser);
