@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 
 const HomepageCarousel = ({ stories }) => {
-  const storiesOnCarousel = [15, 16, 17];
+  const storiesOnCarousel = [26, 27, 28];
   const items = stories.filter(story => storiesOnCarousel.includes(story.id));
 
   const [activeIndex, setActiveIndex] = useState(0);

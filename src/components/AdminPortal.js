@@ -21,7 +21,7 @@ const AdminPortal = props => {
       <h1>Pending Stories</h1>
       <div className="pending-wrapper">
         {props.pendingStories.map(story => (
-          <PendingStory story={story} key={story.id} />
+          <PendingStory story={story} key={story.id} storyId={story.id} />
         ))}
       </div>
     </div>

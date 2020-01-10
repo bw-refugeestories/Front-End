@@ -96,10 +96,9 @@ const SubmitStory = props => {
             margin="normal"
             onChange={handleUpdate}
             fullWidth
-            name="image"
-            type="file"
-            helperText="Image for your story"
             id="image"
+            label="Optional URL for image"
+            name="image"
           />
           <Button
             type="submit"
