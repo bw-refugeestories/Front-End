@@ -16,10 +16,14 @@ export const ADD_ADMIN_USER_FAILURE = "ADD_ADMIN_USER_FAILURE";
 export const FETCH_SINGLE_STORY_START = "FETCH_SINGLE_STORY_START";
 export const FETCH_SINGLE_STORY_SUCCESS = "FETCH_SINGLE_STORY_SUCCESS";
 export const FETCH_SINGLE_STORY_FAILURE = "FETCH_SINGLE_STORY_FAILURE";
+export const APPROVE_STORY_START = 'APPROVE_STORY_START';
+export const APPROVE_STORY_SUCCESS = 'APPROVE_STORY_SUCCESS';
+export const APPROVE_STORY_FAILURE = 'APPROVE_STORY_FAILURE';
+export const DENY_STORY_START = 'DENY_STORY_START';
+export const DENY_STORY_SUCCESS = 'DENY_STORY_SUCCESS';
+export const DENY_STORY_FAILURE = 'DENY_STORY_FAILURE';
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
-export const APPROVE_STORY = 'APPROVE_STORY';
-export const DENY_STORY = 'DENY_STORY';
 
 export const fetch_stories = () => dispatch => {
   dispatch({ type: FETCH_STORIES_START });
@@ -89,23 +93,29 @@ export const add_admin_user = newUser => dispatch => {
 };
 
 export const approveStory = story => dispatch => {
-    dispatch({ type: APPROVE_STORY});
+    dispatch({ type: APPROVE_STORY_START});
     axiosWithAuth()
-    .post(`pendingStories/approve/${story.id}`, {})
+    .post(`pendingStories/approve/${story.id}`)
     .then (res => {
-      console.log(res.data)
-        dispatch( {type: APPROVE_STORY, payload: res.data} )
+      console.log(res);
+      story.newId = res.data.newId;
+      dispatch( {type: APPROVE_STORY_SUCCESS, payload: story} )
     })
-    .catch( err => console.log('Approve Story: Error Happened', err))
+    .catch( err => {
+      dispatch({type: APPROVE_STORY_FAILURE, payload: `${err.response.status} ${err.response.statusText}`})
+    })
 }
 
 export const denyStory = id => dispatch => {
+    dispatch({type: DENY_STORY_START});
     axiosWithAuth()
     .delete(`/pendingStories/delete/${id}`)
     .then ( res =>{
-        dispatch( {type: DENY_STORY, payload: res.data} )
+        dispatch( {type: DENY_STORY_SUCCESS, payload: id} )
     })
-    .catch(err => console.log('DenyStory: Oops Something went wrong', err))
+    .catch(err => {
+      dispatch({type: DENY_STORY_FAILURE, payload: `${err.response.status} ${err.response.statusText}`})
+    })
 }
 
 export const logout = () => dispatch => {

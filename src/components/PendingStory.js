@@ -54,6 +54,7 @@ const PendingStory = props => {
                     ...props.story,
                     approved: true,
                 }
+                console.log(updateStories)
                 props.approveStory(updateStories);
                 handleClose();
             }}

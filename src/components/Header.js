@@ -4,7 +4,6 @@ import { Link, NavLink } from "react-router-dom";
 
 
 const Header = props => {
-  const isLoggedIn = props.isLoggedIn;
   return (
     <section className="header">
       <Link to="/">
@@ -12,7 +11,7 @@ const Header = props => {
       </Link>
       <ul className="menu">
         {
-          isLoggedIn ? 
+          props.isLoggedIn ? 
             <li>
               <NavLink exact to="/admin">
                 Admin
@@ -27,7 +26,7 @@ const Header = props => {
         </li>
 
         {
-          isLoggedIn ?
+          props.isLoggedIn ?
             <li>
               <NavLink exact to="/logout">
                 Logout

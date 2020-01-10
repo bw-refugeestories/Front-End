@@ -14,8 +14,14 @@ import {
   FETCH_SINGLE_STORY_START,
   FETCH_SINGLE_STORY_SUCCESS,
   FETCH_SINGLE_STORY_FAILURE,
-  APPROVE_STORY,
-  DENY_STORY
+  APPROVE_STORY_START,
+  APPROVE_STORY_SUCCESS,
+  APPROVE_STORY_FAILURE,
+  DENY_STORY_START,
+  DENY_STORY_SUCCESS,
+  DENY_STORY_FAILURE,
+  LOGIN,
+  LOGOUT
 } from "../actions";
 
 const initialState = {
@@ -86,20 +92,47 @@ export const storyReducer = (state = initialState, action) => {
         error: action.payload
       };
 
-    case APPROVE_STORY:
-      return {
-        ...state
-        // stories: state.stories.map(story => {
-        //   return story.id === action.payload.id ? action.payload : story;
-        // })
-      };
-    case DENY_STORY:
+    case APPROVE_STORY_START:
       return {
         ...state,
+        isFetching: true,
+        error: ''
+      }
+    case APPROVE_STORY_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        stories: [...state.stories, action.payload],
+        pendingStories: state.pendingStories.filter(story => {
+          return story.id !== action.payload.id;
+        })
+      };
+    case APPROVE_STORY_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload
+      }
+    case DENY_STORY_START:
+      return {
+        ...state,
+        isFetching: true,
+        error: ''
+      }
+    case DENY_STORY_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
         pendingStories: state.pendingStories.filter(story => {
           return story.id !== action.payload;
         })
       };
+    case DENY_STORY_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload
+      }
     case ADD_ADMIN_USER_START:
       return {
         ...state,
@@ -136,6 +169,16 @@ export const storyReducer = (state = initialState, action) => {
         isFetching: false,
         error: action.payload
       };
+    case LOGIN:
+      return {
+        ...state,
+        isLoggedIn: true
+      }
+    case LOGOUT:
+      return {
+        ...state,
+        isLoggedIn: false
+      }
     default:
       return state;
   }
