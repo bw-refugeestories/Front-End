@@ -16,6 +16,13 @@ import {
 } from "../actions";
 
 const initialState = {
+  FETCH_SINGLE_STORY_START,
+  FETCH_SINGLE_STORY_SUCCESS,
+  FETCH_SINGLE_STORY_FAILURE
+} from "../actions";
+
+const initialState = {
+  singleStory: {},
   stories: [],
   pendingStories: [],
   error: "",
@@ -81,6 +88,7 @@ export const storyReducer = (state = initialState, action) => {
         isFetching: false,
         error: action.payload
       };
+      
     case APPROVE_STORY:
       return {
         ...state,
@@ -113,10 +121,25 @@ export const storyReducer = (state = initialState, action) => {
         isFetching: false,
         error: action.payload
       };
-
-    default:
+    case FETCH_SINGLE_STORY_START:
       return {
-        ...state
+        ...state,
+        isFetching: true,
+        error: ""
       };
+    case FETCH_SINGLE_STORY_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        singleStory: action.payload
+      };
+    case FETCH_SINGLE_STORY_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload
+      };
+    default:
+      return state;
   }
 };

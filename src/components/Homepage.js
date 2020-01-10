@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import HomepageCarousel from "./Homepage/HomepageCarousel";
 import StoryList from "./Homepage/StoryList";
 import { fetch_stories } from "../utils/actions";
+import { Row, Col, Spinner } from "reactstrap";
 
 const Homepage = props => {
   // const [stories, setStories] = useState([]);
@@ -14,21 +15,34 @@ const Homepage = props => {
   //     .catch(err => console.log("API Request Error:", err));
   // }, []);
 
+  const { isFetching, stories, fetch_stories } = props;
+
   useEffect(() => {
-    props.fetch_stories();
+    fetch_stories();
   }, []);
+
+  if (isFetching) {
+    return (
+      <Row className="mx-0">
+        <Col xs={12} className="py-4 pr-5 text-center story-content">
+          <Spinner color="dark" />
+        </Col>
+      </Row>
+    );
+  }
 
   return (
     <>
-      <HomepageCarousel stories={props.stories} />
-      <StoryList stories={props.stories} />
+      <HomepageCarousel stories={stories} />
+      <StoryList stories={stories} />
     </>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    stories: state.stories
+    stories: state.stories,
+    isFetching: state.isFetching
   };
 };
 
