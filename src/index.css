@@ -123,6 +123,10 @@ table {
   border-spacing: 0;
 }
 
+form {
+  margin-bottom: 40px;
+}
+
 .header {
   height: 50px;
   background: #033860;
