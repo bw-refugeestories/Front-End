@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import { sampleSize } from "lodash";
 import {
   Carousel,
   CarouselItem,
@@ -9,9 +9,11 @@ import {
   CarouselCaption
 } from "reactstrap";
 
+const randomSelector = (allStories, howMany) => sampleSize(allStories, howMany);
+
 const HomepageCarousel = ({ stories }) => {
-  const storiesOnCarousel = [26, 27, 28];
-  const items = stories.filter(story => storiesOnCarousel.includes(story.id));
+  const [items, setItems] = useState([]);
+  useEffect(() => setItems(randomSelector(stories, 3)), []);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
