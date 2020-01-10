@@ -53,6 +53,7 @@ const Login = props => {
             setIsFailed(false);
 
             localStorage.setItem('token', res.data.token);
+            props.login();
             props.history.push('/admin');
          })
          .catch(err => {
