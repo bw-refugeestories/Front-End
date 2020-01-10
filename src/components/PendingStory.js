@@ -54,7 +54,8 @@ const PendingStory = props => {
                     ...props.story,
                     approved: true,
                 }
-                props.approveStory(updateStories)
+                props.approveStory(updateStories);
+                handleClose();
             }}
             >
               Accept
@@ -64,6 +65,7 @@ const PendingStory = props => {
             color="secondary"
             onClick={() => {
                 props.denyStory(props.story.id)
+                handleClose();
             }}
             >
               Deny

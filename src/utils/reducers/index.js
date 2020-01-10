@@ -11,14 +11,11 @@ import {
   FETCH_STORIES_START,
   FETCH_STORIES_SUCCESS,
   FETCH_STORIES_FAILURE,
-  APPROVE_STORY,
-  DENY_STORY
-} from "../actions";
-
-const initialState = {
   FETCH_SINGLE_STORY_START,
   FETCH_SINGLE_STORY_SUCCESS,
-  FETCH_SINGLE_STORY_FAILURE
+  FETCH_SINGLE_STORY_FAILURE,
+  APPROVE_STORY,
+  DENY_STORY
 } from "../actions";
 
 const initialState = {
@@ -88,13 +85,13 @@ export const storyReducer = (state = initialState, action) => {
         isFetching: false,
         error: action.payload
       };
-      
+
     case APPROVE_STORY:
       return {
-        ...state,
-        stories: state.stories.map(story => {
-          return story.id === action.payload.id ? action.payload : story;
-        })
+        ...state
+        // stories: state.stories.map(story => {
+        //   return story.id === action.payload.id ? action.payload : story;
+        // })
       };
     case DENY_STORY:
       return {

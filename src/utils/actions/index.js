@@ -91,8 +91,9 @@ export const add_admin_user = newUser => dispatch => {
 export const approveStory = story => dispatch => {
     dispatch({ type: APPROVE_STORY});
     axiosWithAuth()
-    .put(`pendingStories/approve/${story.id}`, story)
+    .post(`pendingStories/approve/${story.id}`, {})
     .then (res => {
+      console.log(res.data)
         dispatch( {type: APPROVE_STORY, payload: res.data} )
     })
     .catch( err => console.log('Approve Story: Error Happened', err))
