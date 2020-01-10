@@ -11,6 +11,11 @@ import {
   FETCH_STORIES_START,
   FETCH_STORIES_SUCCESS,
   FETCH_STORIES_FAILURE,
+  APPROVE_STORY,
+  DENY_STORY
+} from "../actions";
+
+const initialState = {
   FETCH_SINGLE_STORY_START,
   FETCH_SINGLE_STORY_SUCCESS,
   FETCH_SINGLE_STORY_FAILURE
@@ -83,7 +88,21 @@ export const storyReducer = (state = initialState, action) => {
         isFetching: false,
         error: action.payload
       };
-
+      
+    case APPROVE_STORY:
+      return {
+        ...state,
+        stories: state.stories.map(story => {
+          return story.id === action.payload.id ? action.payload : story;
+        })
+      };
+    case DENY_STORY:
+      return {
+        ...state,
+        pendingStories: state.pendingStories.filter(story => {
+          return story.id !== action.payload;
+        })
+      };
     case ADD_ADMIN_USER_START:
       return {
         ...state,

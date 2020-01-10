@@ -18,6 +18,8 @@ export const FETCH_SINGLE_STORY_SUCCESS = "FETCH_SINGLE_STORY_SUCCESS";
 export const FETCH_SINGLE_STORY_FAILURE = "FETCH_SINGLE_STORY_FAILURE";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const APPROVE_STORY = 'APPROVE_STORY';
+export const DENY_STORY = 'DENY_STORY';
 
 export const fetch_stories = () => dispatch => {
   dispatch({ type: FETCH_STORIES_START });
@@ -85,6 +87,25 @@ export const add_admin_user = newUser => dispatch => {
       });
     });
 };
+
+export const approveStory = story => dispatch => {
+    dispatch({ type: APPROVE_STORY});
+    axiosWithAuth()
+    .put(`pendingStories/approve/${story.id}`, story)
+    .then (res => {
+        dispatch( {type: APPROVE_STORY, payload: res.data} )
+    })
+    .catch( err => console.log('Approve Story: Error Happened', err))
+}
+
+export const denyStory = id => dispatch => {
+    axiosWithAuth()
+    .delete(`/pendingStories/delete/${id}`)
+    .then ( res =>{
+        dispatch( {type: DENY_STORY, payload: res.data} )
+    })
+    .catch(err => console.log('DenyStory: Oops Something went wrong', err))
+}
 
 export const logout = () => dispatch => {
   dispatch({ type: LOGOUT });
