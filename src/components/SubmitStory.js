@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 
 const SubmitStory = props => {
   const classes = useStyles();
-  const [story, setStory] = useState({storyName: '', storyContent: ''});
+  const [story, setStory] = useState({storyName: '', storyContent: '', image: ''});
   const [isFailed, setIsFailed] = useState(false);
 
   const handleUpdate = e => {
@@ -90,6 +90,16 @@ const SubmitStory = props => {
             label="Story Content"
             type="text"
             id="storyContent"
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            onChange={handleUpdate}
+            fullWidth
+            name="image"
+            type="file"
+            helperText="Image for your story"
+            id="image"
           />
           <Button
             type="submit"
