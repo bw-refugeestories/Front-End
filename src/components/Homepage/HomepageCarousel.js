@@ -13,7 +13,7 @@ const randomSelector = (allStories, howMany) => sampleSize(allStories, howMany);
 
 const HomepageCarousel = ({ stories }) => {
   const [items, setItems] = useState([]);
-  useEffect(() => setItems(randomSelector(stories, 3)), []);
+  useEffect(() => setItems(randomSelector(stories, 3)), [stories]);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
