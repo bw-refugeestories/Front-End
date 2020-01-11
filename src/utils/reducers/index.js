@@ -8,6 +8,9 @@ import {
   ADD_ADMIN_USER_START,
   ADD_ADMIN_USER_SUCCESS,
   ADD_ADMIN_USER_FAILURE,
+  MODIFY_USER_START,
+  MODIFY_USER_SUCCESS,
+  MODIFY_USER_FAILURE,
   FETCH_STORIES_START,
   FETCH_STORIES_SUCCESS,
   FETCH_STORIES_FAILURE,
@@ -21,16 +24,22 @@ import {
   DENY_STORY_SUCCESS,
   DENY_STORY_FAILURE,
   LOGIN,
-  LOGOUT
+  LOGOUT,
+  STORE_USER_ID,
+  FETCH_USERS_SUCCESS,
+  FETCH_USERS_START,
+  FETCH_USERS_FAILURE
 } from "../actions";
 
 const initialState = {
   singleStory: {},
   stories: [],
   pendingStories: [],
+  users: [],
   error: "",
   isFetching: false,
-  isLoggedIn: Boolean(localStorage.getItem("token"))
+  isLoggedIn: Boolean(localStorage.getItem("token")),
+  loggedInUserId: null
 };
 
 export const storyReducer = (state = initialState, action) => {
@@ -151,6 +160,47 @@ export const storyReducer = (state = initialState, action) => {
         isFetching: false,
         error: action.payload
       };
+    case MODIFY_USER_START:
+      return {
+        ...state,
+        isFetching: true,
+        error: ''
+      }
+    case MODIFY_USER_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        users: state.users.map(user => {
+          if(user.id === state.loggedInUserId) {
+            return action.payload
+          }
+          return user
+        })
+      }
+    case MODIFY_USER_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload
+      }
+    case FETCH_USERS_START:
+      return {
+        ...state,
+        isFetching: true,
+        error: ''
+      }
+    case FETCH_USERS_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        users: action.payload
+      }
+    case FETCH_USERS_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload
+      }
     case FETCH_SINGLE_STORY_START:
       return {
         ...state,
@@ -173,6 +223,11 @@ export const storyReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggedIn: true
+      }
+    case STORE_USER_ID:
+      return {
+        ...state,
+        loggedInUserId: action.payload
       }
     case LOGOUT:
       return {

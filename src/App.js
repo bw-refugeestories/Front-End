@@ -7,6 +7,7 @@ import Logout from './components/Logout';
 import SubmitStory from "./components/SubmitStory";
 import AdminPortal from "./components/AdminPortal";
 import AdminAddUser from "./components/AdminAddUser";
+import AdminModifyUser from './components/AdminModifyUser';
 import Story from "./components/Story";
 import Footer from "./components/Footer";
 import PrivateRoute from './components/PrivateRoute';
@@ -21,6 +22,7 @@ const App = () => {
       <Route path="/submit-story" component={SubmitStory} />
       <PrivateRoute exact path="/admin" component={AdminPortal} />
       <PrivateRoute exact path="/admin/add-user" component={AdminAddUser} />
+      <PrivateRoute exact path="/admin/modify-user" component={AdminModifyUser} />
       <Route path="/story/:id" component={Story} />
       <Footer />
     </div>
