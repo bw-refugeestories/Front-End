@@ -24,6 +24,13 @@ export const DENY_STORY_SUCCESS = 'DENY_STORY_SUCCESS';
 export const DENY_STORY_FAILURE = 'DENY_STORY_FAILURE';
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const FETCH_USERS_START = 'FETCH_USERS_START';
+export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
+export const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
+export const STORE_USER_ID = 'STORE_USER_ID';
+export const MODIFY_USER_START = 'MODIFY_USER_START';
+export const MODIFY_USER_SUCCESS = 'MODIFY_USER_SUCCESS';
+export const MODIFY_USER_FAILURE = 'MODIFY_USER_FAILURE';
 
 export const fetch_stories = () => dispatch => {
   dispatch({ type: FETCH_STORIES_START });
@@ -92,6 +99,22 @@ export const add_admin_user = newUser => dispatch => {
     });
 };
 
+export const modify_admin_user = user => dispatch => {
+  dispatch({ type: MODIFY_USER_START });
+  let updatedUser = {
+    firstNameUpdate: user.firstName,
+    lastNameUpdate: user.lastName,
+    usernameUpdate: user.username,
+    passwordUpdate: user.password
+  }
+  let id = user.id;
+  delete user.id;
+  axiosWithAuth()
+    .put(`auth/modify/${id}`, updatedUser)
+    .then(res => dispatch({ type: MODIFY_USER_SUCCESS, payload: res.data}))
+    .catch(err => dispatch({type: MODIFY_USER_FAILURE, payload: `${err.response.status} ${err.response.statusText}`}))
+}
+
 export const approveStory = story => dispatch => {
     dispatch({ type: APPROVE_STORY_START});
     axiosWithAuth()
@@ -118,6 +141,13 @@ export const denyStory = id => dispatch => {
     })
 }
 
+export const fetch_users = () => dispatch => {
+  dispatch({ type: FETCH_USERS_START });
+  axios.get('https://refugees-lambda.herokuapp.com/auth/')
+    .then(res => dispatch({ type: FETCH_USERS_SUCCESS, payload: res.data }))
+    .catch(err => dispatch({type: FETCH_USERS_FAILURE, payload: `${err.response.status} ${err.response.statusText}`}));
+}
+
 export const logout = () => dispatch => {
   dispatch({ type: LOGOUT });
 };
@@ -125,3 +155,7 @@ export const logout = () => dispatch => {
 export const login = () => dispatch => {
   dispatch({ type: LOGIN });
 };
+
+export const store_user_id = id => dispatch => {
+  dispatch({ type: STORE_USER_ID, payload: id });
+}

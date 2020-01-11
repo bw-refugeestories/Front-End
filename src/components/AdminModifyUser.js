@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {connect} from 'react-redux';
-import {login, store_user_id} from '../utils/actions';
-import axios from 'axios';
+import {modify_admin_user} from '../utils/actions';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -35,11 +34,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Login = props => {
+const AdminModifyUser = props => {
   const classes = useStyles();
+  const { loggedInUserId, users, modify_admin_user } = props;
 
-  const [user, setUser] = useState({username: '', password: ''});
-  const [isFailed, setIsFailed] = useState(false);
+  const [user, setUser] = useState({firstName: '', lastName: '', username: '', password: ''});
+
+  useEffect(() => {
+      console.log(user)
+    let loggedInUser = users.filter(user => user.id === loggedInUserId);
+    loggedInUser = loggedInUser[0];
+    console.log(loggedInUser)
+    setUser({...user, firstName: loggedInUser.firstName, lastName: loggedInUser.lastName, username: loggedInUser.username});
+  }, []);
 
   const handleUpdate = e => {
     const {name, value} = e.target;
@@ -48,25 +55,8 @@ const Login = props => {
 
   const handleSubmit = e => {
       e.preventDefault();
-      axios.post('https://refugees-lambda.herokuapp.com/auth/login', user)
-         .then(res => {
-            setIsFailed(false);
-            let signedInUserId = null;
-
-            props.users.map(currentUser => {
-              if(currentUser.username === user.username) {
-                signedInUserId = currentUser.id;
-              }
-            });
-            props.store_user_id(signedInUserId);
-            localStorage.setItem('token', res.data.token);
-            props.login();
-            props.history.push('/admin');
-         })
-         .catch(err => {
-            console.error(err);
-            setIsFailed(true);
-         });
+      user.id = loggedInUserId;
+      modify_admin_user(user);
   }
 
   return (
@@ -76,9 +66,32 @@ const Login = props => {
         <Avatar className={classes.blue}>
         </Avatar>
         <Typography component="h1" variant="h5">
-          Login
+          Add Admin User
         </Typography>
         <form className={classes.form} noValidate>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            onChange={handleUpdate}
+            required
+            fullWidth
+            id="firstName"
+            label="First Name"
+            name="firstName"
+            autoFocus
+            value = {user.firstName}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            onChange={handleUpdate}
+            required
+            fullWidth
+            id="lastName"
+            label="Last Name"
+            name="lastName"
+            value = {user.lastName}
+          />
           <TextField
             variant="outlined"
             margin="normal"
@@ -88,7 +101,7 @@ const Login = props => {
             id="username"
             label="Username"
             name="username"
-            autoFocus
+            value = {user.username}
           />
           <TextField
             variant="outlined"
@@ -109,9 +122,8 @@ const Login = props => {
             color="primary"
             className={classes.submit}
           >
-            Login
+            Update User
           </Button>
-          {!isFailed ? null : <p className='failed'>Login failed. Please try again!</p>}
         </form>
       </div>
     </Container>
@@ -119,10 +131,10 @@ const Login = props => {
 }
 
 const mapStateToProps = state => {
-  return {
-    users: state.users,
-    loggedInUserId: state.loggedInUserId
-  }
+    return {
+        users: state.users,
+        loggedInUserId: state.loggedInUserId
+    }
 }
 
-export default connect(mapStateToProps, {login, store_user_id})(Login);
+export default connect(mapStateToProps, {modify_admin_user})(AdminModifyUser);

@@ -18,6 +18,11 @@ const AdminPortal = props => {
           Add New Admin
         </Button>
       </Link>
+      <Link to="/admin/modify-user">
+        <Button variant="contained" color="primary">
+          Modify User
+        </Button>
+      </Link>
       <h1>Pending Stories</h1>
       <div className="pending-wrapper">
         {props.pendingStories.map(story => (
@@ -30,7 +35,8 @@ const AdminPortal = props => {
 
 const mapStateToProps = state => {
   return {
-    pendingStories: state.pendingStories
+    pendingStories: state.pendingStories,
+    loggedInUserId: state.loggedInUserId
   };
 };
 
