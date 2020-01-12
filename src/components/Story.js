@@ -38,10 +38,6 @@ const Story = props => {
       <Row className="mx-0">
         <Col xs={12} className="py-4 pr-5 story-content">
           <h2 className="pb-3 story-title">{storyName}</h2>
-          <p className="story-meta">
-            <strong>Author: </strong>
-            {author || "anonymous"}
-          </p>
           {storyContent &&
             storyContent.split("\n").map((p, i) => {
               return (
