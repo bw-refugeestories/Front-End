@@ -21,7 +21,7 @@ const Story = props => {
   useEffect(() => {
     fetch_single_story(storyID);
     window.scrollTo(0, 0);
-  }, [storyID]);
+  }, [storyID, fetch_single_story]);
 
   if (isFetching) {
     return (

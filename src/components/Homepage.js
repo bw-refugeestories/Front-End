@@ -20,8 +20,9 @@ const Homepage = props => {
   useEffect(() => {
     fetch_stories();
     fetch_users();
-  }, []);
+  }, [fetch_stories, fetch_users]);
 
+  console.log({ props });
   if (isFetching) {
     return (
       <Row className="mx-0">
@@ -48,6 +49,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetch_stories, fetch_users })(Homepage);
+export default connect(mapStateToProps, { fetch_stories, fetch_users })(
+  Homepage
+);
 
 // export default Homepage;

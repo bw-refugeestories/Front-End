@@ -6,9 +6,7 @@ import { fetch_pending_stories } from "../utils/actions";
 import PendingStory from "./PendingStory.js";
 
 const AdminPortal = ({ pendingStories, fetch_pending_stories }) => {
-  useEffect(() => {
-    fetch_pending_stories();
-  }, []);
+  useEffect(fetch_pending_stories, []);
 
   return (
     <div className="admin-portal">
