@@ -43,7 +43,7 @@ const AdminModifyUser = props => {
   useEffect(() => {
     let loggedInUser = users.filter(user => user.id === loggedInUserId);
     loggedInUser = loggedInUser[0];
-    setUser({...user, firstName: loggedInUser.firstName, lastName: loggedInUser.lastName, username: loggedInUser.username});
+    if(loggedInUser) {setUser({...user, firstName: loggedInUser.firstName, lastName: loggedInUser.lastName, username: loggedInUser.username})};
   }, []);
 
   const handleUpdate = e => {
@@ -64,7 +64,7 @@ const AdminModifyUser = props => {
         <Avatar className={classes.blue}>
         </Avatar>
         <Typography component="h1" variant="h5">
-          Add Admin User
+          Modify User
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
