@@ -31,6 +31,9 @@ export const STORE_USER_ID = 'STORE_USER_ID';
 export const MODIFY_USER_START = 'MODIFY_USER_START';
 export const MODIFY_USER_SUCCESS = 'MODIFY_USER_SUCCESS';
 export const MODIFY_USER_FAILURE = 'MODIFY_USER_FAILURE';
+export const DELETE_USER_START = 'DELETE_USER_START';
+export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
+export const DELETE_USER_FAILURE = 'DELETE_USER_FAILURE';
 
 export const fetch_stories = () => dispatch => {
   dispatch({ type: FETCH_STORIES_START });
@@ -113,6 +116,14 @@ export const modify_admin_user = user => dispatch => {
     .put(`auth/modify/${id}`, updatedUser)
     .then(res => dispatch({ type: MODIFY_USER_SUCCESS, payload: res.data}))
     .catch(err => dispatch({type: MODIFY_USER_FAILURE, payload: `${err.response.status} ${err.response.statusText}`}))
+}
+
+export const deleteUser = id => dispatch => {
+  dispatch({ type: DELETE_USER_START });
+  axiosWithAuth()
+    .delete(`/auth/delete/${id}`)
+    .then(res => {console.log(res.data.id[0]); dispatch({ type: DELETE_USER_SUCCESS, payload: res.data.id[0] })})
+    .catch(err => dispatch({type: DELETE_USER_FAILURE, payload: `${err.response.status} ${err.response.statusText}`}))
 }
 
 export const approveStory = story => dispatch => {

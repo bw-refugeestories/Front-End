@@ -22,6 +22,11 @@ const AdminPortal = ({ pendingStories, fetch_pending_stories }) => {
           Modify User
         </Button>
       </Link>
+      <Link to="/admin/delete-user">
+        <Button variant="contained" color="primary">
+          Delete a User
+        </Button>
+      </Link>
       <h2>Pending Stories</h2>
       <div className="pending-wrapper">
         {pendingStories.length > 0
