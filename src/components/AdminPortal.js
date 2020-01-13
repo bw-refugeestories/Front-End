@@ -31,26 +31,26 @@ const AdminPortal = ({ pendingStories, fetch_pending_stories }) => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Pending Stories
+            Dashboard
           </Typography>
           <Link to="/admin/add-user">
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="secondary">
               Add New Admin
             </Button>
           </Link>
           <Link to="/admin/modify-user">
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="secondary">
               Modify User
             </Button>
           </Link>
           <Link to="/admin/delete-user">
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="secondary">
               Delete a User
             </Button>
           </Link>
         </Toolbar>
       </AppBar>
-      <h2>Pending Stories</h2>
+      <h2 className='pending-header'>Pending Stories</h2>
       <div className="pending-wrapper">
         {pendingStories.length > 0 ? (
           pendingStories.map(story => (

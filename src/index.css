@@ -120,16 +120,14 @@
   margin: 30px 0 40px 0;
 }
 
+.admin-portal .pending-header {
+  margin: 30px;
+}
+
 .admin-portal button {
   margin: 10px;
 }
 
 .failed {
   color: red;
-}
-
-.admin-portal .pending-wrapper {
-}
-
-.admin-portal .pending-story {
 }
