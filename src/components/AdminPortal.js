@@ -28,18 +28,6 @@ const AdminPortal = ({ pendingStories, fetch_pending_stories }) => {
 
   return (
     <div className="admin-portal">
-      {/* <Link to="/admin/add-user">
-        <Button variant="contained" color="primary">
-          Add New Admin
-        </Button>
-      </Link>
-      <Link to="/admin/modify-user">
-        <Button variant="contained" color="primary">
-          Modify User
-        </Button>
-      </Link>
-      <h2>Pending Stories</h2> */}
-
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
@@ -55,9 +43,14 @@ const AdminPortal = ({ pendingStories, fetch_pending_stories }) => {
               Modify User
             </Button>
           </Link>
+          <Link to="/admin/delete-user">
+            <Button variant="contained" color="primary">
+              Delete a User
+            </Button>
+          </Link>
         </Toolbar>
       </AppBar>
-
+      <h2>Pending Stories</h2>
       <div className="pending-wrapper">
         {pendingStories.length > 0 ? (
           pendingStories.map(story => (
