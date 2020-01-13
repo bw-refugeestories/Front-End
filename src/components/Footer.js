@@ -34,7 +34,7 @@ const Footer = () => {
         <h5>Links</h5>
         <ul className="links">
           <li>
-            <a href="https://saferefuge.com">Safe Refuge Home Page</a>
+            <a href="https://saferefuge.netlify.com/" target="_blank">Safe Refuge Home Page</a>
           </li>
           <li>
             <Link to="/submit-story">Submit Your Story</Link>
