@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import {
   Avatar,
   Button,
-  CssBaseline,
   Typography,
   makeStyles,
   Container
@@ -68,7 +67,6 @@ const SubmitStory = ({ values, errors, touched, status, history }) => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.blue}></Avatar>
         <Typography className={classes.title} component="h1" variant="h5">
