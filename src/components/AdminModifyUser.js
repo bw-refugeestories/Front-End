@@ -41,10 +41,8 @@ const AdminModifyUser = props => {
   const [user, setUser] = useState({firstName: '', lastName: '', username: '', password: ''});
 
   useEffect(() => {
-      console.log(user)
     let loggedInUser = users.filter(user => user.id === loggedInUserId);
     loggedInUser = loggedInUser[0];
-    console.log(loggedInUser)
     setUser({...user, firstName: loggedInUser.firstName, lastName: loggedInUser.lastName, username: loggedInUser.username});
   }, []);
 

@@ -11,6 +11,9 @@ import {
   MODIFY_USER_START,
   MODIFY_USER_SUCCESS,
   MODIFY_USER_FAILURE,
+  DELETE_USER_START,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAILURE,
   FETCH_STORIES_START,
   FETCH_STORIES_SUCCESS,
   FETCH_STORIES_FAILURE,
@@ -100,7 +103,6 @@ export const storyReducer = (state = initialState, action) => {
         isFetching: false,
         error: action.payload
       };
-
     case APPROVE_STORY_START:
       return {
         ...state,
@@ -181,6 +183,32 @@ export const storyReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
+        error: action.payload
+      }
+    case DELETE_USER_START:
+      return {
+        ...state,
+        isFetching: true,
+        error: ''
+      }
+    case DELETE_USER_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        users: state.users.filter(user => {
+          if(user.id !== action.payload) {
+            return true;
+          }
+          else {
+            return false;
+          }
+        }),
+        error: ''
+      }
+    case DELETE_USER_FAILURE:
+      return {
+        ...state,
+        isFetching: true,
         error: action.payload
       }
     case FETCH_USERS_START:
